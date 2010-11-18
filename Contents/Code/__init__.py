@@ -4,7 +4,7 @@ def Start():
   pass
   
 class PlexMovieAgent(Agent.Movies):
-  name = 'Home Movies'
+  name = 'Personal Media'
   languages = [Locale.Language.English, Locale.Language.Swedish, Locale.Language.French, 
                Locale.Language.Spanish, Locale.Language.Dutch, Locale.Language.German, 
                Locale.Language.Italian]
