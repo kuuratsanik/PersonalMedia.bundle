@@ -52,7 +52,7 @@ class PlexPersonalMediaAgentArtists(Agent.Artist):
     metadata.title = media.title
 
 class PlexPersonalMediaAgentAlbums(Agent.Album):
-  name = 'Personal Media Artists'
+  name = 'Personal Media Albums'
   languages = [Locale.Language.NoLanguage]
 
   def search(self, results, media, lang):
