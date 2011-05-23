@@ -60,3 +60,13 @@ class PlexPersonalMediaAgentAlbums(Agent.Album):
 
   def update(self, metadata, media, lang):
     metadata.title = media.title
+    
+class PlexPersonalMediaAgentPhotos(Agent.Photos):
+  name = 'Photos'
+  languages = [Locale.Language.NoLanguage]
+
+  def search(self, results, media, lang):
+    results.Append(MetadataSearchResult(id=media.id, name=media.album, year=None, lang=lang, score=100))
+
+  def update(self, metadata, media, lang):
+    metadata.title = media.title
