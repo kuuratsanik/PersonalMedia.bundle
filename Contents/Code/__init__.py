@@ -46,7 +46,7 @@ class PlexPersonalMediaAgentTVShows(Agent.TV_Shows):
 
 class PlexPersonalMediaAgentArtists(Agent.Artist):
   name = 'Personal Media Artists'
-  languages = [Locale.Language.NoLanguage]
+  languages = [Locale.Language.NoLanguage, Locale.Language.Korean]
 
   def search(self, results, media, lang):
     results.Append(MetadataSearchResult(id=media.id, name=media.artist, year=None, lang=lang, score=100))
@@ -56,7 +56,7 @@ class PlexPersonalMediaAgentArtists(Agent.Artist):
 
 class PlexPersonalMediaAgentAlbums(Agent.Album):
   name = 'Personal Media Albums'
-  languages = [Locale.Language.NoLanguage]
+  languages = [Locale.Language.NoLanguage, Locale.Language.Korean]
 
   def search(self, results, media, lang):
     results.Append(MetadataSearchResult(id=media.id, name=media.album, year=None, lang=lang, score=100))
