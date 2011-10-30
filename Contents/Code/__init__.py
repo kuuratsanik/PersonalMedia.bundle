@@ -27,7 +27,10 @@ class PlexPersonalMediaAgentMovies(Agent.Movies):
     date = datetime.date.fromtimestamp(mod_time)
     
     # Fill in the little we can get from a file.
-    metadata.title = media.title
+    try: title = os.path.splitext(os.path.basename(filename))[0]
+    except: title = media.title
+      
+    metadata.title = title
     metadata.year = date.year
     metadata.originally_available_at = Datetime.ParseDate(str(date)).date()
     
