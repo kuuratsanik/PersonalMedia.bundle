@@ -16,7 +16,7 @@ class PlexPersonalMediaAgentMovies(Agent.Movies):
     filename = part.file.decode('utf-8')
     mod_time = os.path.getmtime(filename)
     
-    results.Append(MetadataSearchResult(id=part.plexHash, name=media.name, year=time.localtime(mod_time)[0], lang=lang, score=100))
+    results.Append(MetadataSearchResult(id=part.hash, name=media.name, year=time.localtime(mod_time)[0], lang=lang, score=100))
       
   def update(self, metadata, media, lang):
     
