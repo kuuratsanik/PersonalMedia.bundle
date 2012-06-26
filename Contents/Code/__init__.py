@@ -1,4 +1,4 @@
-import datetime, os, time
+import datetime, os, time, EXIF 
 
 def Start():
   pass
@@ -69,7 +69,22 @@ class PlexPersonalMediaAgentPhotos(Agent.Photos):
   languages = [Locale.Language.NoLanguage]
 
   def search(self, results, media, lang):
-    results.Append(MetadataSearchResult(id=media.id, name=media.album, year=None, lang=lang, score=100))
+    results.Append(MetadataSearchResult(id=media.id, name=media.title, year=None, lang=lang, score=100))
 
   def update(self, metadata, media, lang):
     metadata.title = media.title
+    
+    file = media.items[0].parts[0].file.decode('utf-8')
+    tags = EXIF.process_file(file, details=False, stop_tag='DateTimeOriginal')
+    if tags == {}: 
+      return #no EXIF tags
+    EXIFDate = str(tags['Image DateTime']).split(' ')
+    if EXIFDate[0][:4] != '0000': #make sure we didn't get a bogus date back
+      EXIFDate[0] = EXIFDate[0].replace(':','-')
+      try:
+        EXIFDate = Datetime.ParseDate(EXIFDate[0] + ' ' + EXIFDate[1])
+      except:
+        Log('Problem parsing EXIF date.')
+        return
+      metadata.originally_available_at = EXIFDate.date()
+      #metadata.year = int(EXIFDate.year)
