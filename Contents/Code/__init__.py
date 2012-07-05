@@ -1,5 +1,17 @@
 import datetime, os, time
 
+# Only use unicode if it's supported, which it is on Windows and OS X,
+# but not Linux. This allows things to work with non-ASCII characters
+# without having to go through a bunch of work to ensure the Linux 
+# filesystem is UTF-8 "clean".
+#
+def unicodize(s):
+  filename = s
+  if os.path.supports_unicode_filenames:
+    try: filename = unicode(s.decode('utf-8'))
+    except: pass
+  return filename
+
 def Start():
   pass
   
@@ -13,7 +25,7 @@ class PlexPersonalMediaAgentMovies(Agent.Movies):
     part = media.items[0].parts[0]
     
     # Get the modification time to use as the year.
-    filename = part.file.decode('utf-8')
+    filename = unicodize(part.file)
     mod_time = os.path.getmtime(filename)
     
     results.Append(MetadataSearchResult(id=part.hash, name=media.name, year=time.localtime(mod_time)[0], lang=lang, score=100))
@@ -21,7 +33,7 @@ class PlexPersonalMediaAgentMovies(Agent.Movies):
   def update(self, metadata, media, lang):
     
     # Get the filename and the mod time.
-    filename = media.items[0].parts[0].file.decode('utf-8')
+    filename = unicodize(media.items[0].parts[0].file)
     mod_time = os.path.getmtime(filename)
     
     date = datetime.date.fromtimestamp(mod_time)
