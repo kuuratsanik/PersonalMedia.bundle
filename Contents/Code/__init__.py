@@ -84,7 +84,8 @@ class PlexPersonalMediaAgentPhotos(Agent.Photos):
       try:
         EXIFDate = Datetime.ParseDate(EXIFDate[0] + ' ' + EXIFDate[1])
       except:
-        Log('Problem parsing EXIF date.')
+        Log('Problem parsing EXIF date for ' + media.items[0].parts[0].file.decode('utf-8') + ' | EXIFDate =')
+        Log(EXIFDate)
         return
       metadata.originally_available_at = EXIFDate.date()
-      #metadata.year = int(EXIFDate.year)
+      metadata.year = int(EXIFDate.year)
