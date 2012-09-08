@@ -1352,14 +1352,17 @@ class EXIF_header:
                     # special case: null-terminated ASCII string
                     # XXX investigate
                     # sometimes gets too big to fit in int value
-                    if count != 0 and count < (2**31):
-                        self.file.seek(self.offset + offset)
-                        values = self.file.read(count)
-                        #print values
-                        # Drop any garbage after a null.
-                        values = values.split('\x00', 1)[0]
-                    else:
-                        values = ''
+                    #if count != 0 and count < (2**31):   -- spo: taking this out, since it hoses us.
+                    self.file.seek(self.offset + offset)
+                    values = self.file.read(count)
+                    #print values
+                    # Drop any garbage after a null.
+                    values = values.split('\x00', 1)[0]
+                    #else:
+                     #   self.file.seek(self.offset + offset)
+                     #   values = self.file.read(count)
+                     #   values = values.split('\x00', 1)[0]
+                     #   values = values
                 else:
                     values = []
                     signed = (field_type in [6, 8, 9, 10])
