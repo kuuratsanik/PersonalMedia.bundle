@@ -69,7 +69,7 @@ class PlexPersonalMediaAgentPhotos(Agent.Photos):
   languages = [Locale.Language.NoLanguage]
 
   def search(self, results, media, lang):
-    results.Append(MetadataSearchResult(id=media.id, name=media.album, year=None, lang=lang, score=100))
+    results.Append(MetadataSearchResult(id=media.id, name=media.title, year=None, lang=lang, score=100))
 
   def update(self, metadata, media, lang):
     metadata.title = media.title
